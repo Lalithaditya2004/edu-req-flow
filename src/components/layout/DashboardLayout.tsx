@@ -1,8 +1,9 @@
 
 import { useState } from "react";
-import { Bell, Menu, X } from "lucide-react";
+import { Bell, Menu, X, Users, BookUser } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { Link, useLocation } from "react-router-dom";
 
 interface DashboardLayoutProps {
   children: React.ReactNode;
@@ -10,6 +11,7 @@ interface DashboardLayoutProps {
 
 const DashboardLayout = ({ children }: DashboardLayoutProps) => {
   const [sidebarOpen, setSidebarOpen] = useState(true);
+  const location = useLocation();
 
   return (
     <div className="min-h-screen dark-gradient">
@@ -46,18 +48,52 @@ const DashboardLayout = ({ children }: DashboardLayoutProps) => {
         )}
       >
         <nav className="space-y-2 p-4">
-          <Button variant="ghost" className="w-full justify-start text-foreground hover:bg-secondary">
-            Dashboard
-          </Button>
-          <Button variant="ghost" className="w-full justify-start text-foreground hover:bg-secondary">
-            New Request
-          </Button>
-          <Button variant="ghost" className="w-full justify-start text-foreground hover:bg-secondary">
-            My Requests
-          </Button>
-          <Button variant="ghost" className="w-full justify-start text-foreground hover:bg-secondary">
-            Settings
-          </Button>
+          <Link to="/dashboard">
+            <Button 
+              variant="ghost" 
+              className={cn(
+                "w-full justify-start text-foreground hover:bg-secondary",
+                location.pathname === "/dashboard" && "bg-secondary"
+              )}
+            >
+              Dashboard
+            </Button>
+          </Link>
+          <Link to="/requests/new">
+            <Button 
+              variant="ghost" 
+              className={cn(
+                "w-full justify-start text-foreground hover:bg-secondary",
+                location.pathname === "/requests/new" && "bg-secondary"
+              )}
+            >
+              New Request
+            </Button>
+          </Link>
+          <Link to="/faculty/dashboard">
+            <Button 
+              variant="ghost" 
+              className={cn(
+                "w-full justify-start text-foreground hover:bg-secondary",
+                location.pathname === "/faculty/dashboard" && "bg-secondary"
+              )}
+            >
+              <BookUser className="mr-2 h-4 w-4" />
+              Faculty Dashboard
+            </Button>
+          </Link>
+          <Link to="/admin/dashboard">
+            <Button 
+              variant="ghost" 
+              className={cn(
+                "w-full justify-start text-foreground hover:bg-secondary",
+                location.pathname === "/admin/dashboard" && "bg-secondary"
+              )}
+            >
+              <Users className="mr-2 h-4 w-4" />
+              Admin Dashboard
+            </Button>
+          </Link>
         </nav>
       </aside>
 
